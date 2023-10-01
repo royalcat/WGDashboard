@@ -2,18 +2,16 @@ version: "3.5"
 
 services:
   wgdashboard:
-    image: donaldzou/wgdashboard
-    build: 
-      context: ./
-      dockerfile: ./Dockerfile
-    cap_add: 
+    image: ghcr.io/royalcat/wgdashboard:latest
+    cap_add:
       - NET_ADMIN
       - SYS_MODULE
     restart: unless-stopped 
     volumes:
-      - /lib/modules:/lib/modules
-      - ./src:/opt/wgdashboard
-      - ./config:/etc/wireguard
+      - config:/etc/wireguard
     ports:
       - 10086:10086
       - 51820:51820/udp
+
+volumes:
+  config:
