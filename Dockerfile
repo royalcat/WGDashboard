@@ -5,6 +5,7 @@ COPY src/requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 # default wireguard configuration
+ENV CONFIGURATION_PATH="/etc/wireguard"
 VOLUME /etc/wireguard/
 RUN  cd /etc/wireguard/ && \
     echo "[Interface]" > wg0.conf && \
@@ -16,8 +17,8 @@ RUN  cd /etc/wireguard/ && \
     chmod 700 wg0.conf
 
 COPY ./src /opt/wgdashboard
-WORKDIR /opt/wgdashboard 
 
+WORKDIR /opt/wgdashboard 
 # FIXME
 CMD ["python3", "dashboard.py"] 
 
