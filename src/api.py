@@ -1,6 +1,5 @@
 import ipaddress, subprocess, datetime, os, util
 from datetime import datetime, timedelta
-from flask import jsonify
 from util import *
 import configparser
 

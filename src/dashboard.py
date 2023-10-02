@@ -3,7 +3,6 @@
 Under Apache-2.0 License
 """
 
-from crypt import methods
 import sqlite3
 import configparser
 import hashlib
