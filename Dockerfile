@@ -27,9 +27,9 @@ RUN  cd /etc/wireguard/ && \
 
 COPY ./src /opt/wgdashboard
 
+RUN rm -f /opt/wgdashboard/gunicorn.conf.py
 WORKDIR /opt/wgdashboard 
-# FIXME
-CMD ["python3", "dashboard.py"] 
+CMD ["gunicorn", "--bind", "0.0.0.0:10086", "dashboard:run_dashboard()"]
 
 EXPOSE 10086/tcp
 EXPOSE 51820/udp
