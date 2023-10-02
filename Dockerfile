@@ -1,8 +1,15 @@
 FROM alpine:3
-RUN apk --no-cache add wireguard-tools iptables ip6tables inotify-tools python3 py3-pip py3-gunicorn procps openresolv
 
+RUN apk --no-cache add \
+    wireguard-tools iptables ip6tables inotify-tools iputils \
+    python3 py3-pip py3-gunicorn \
+    procps openresolv bc coredns gnupg net-tools libcap-utils
+
+RUN apk add --no-cache --virtual=build-dependencies \
+    build-base elfutils-dev linux-headers gcc git 
 COPY src/requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
+RUN apk del --no-network build-dependencies
 
 # default wireguard configuration
 ENV CONFIGURATION_PATH="/etc/wireguard"
